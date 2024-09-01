@@ -1,6 +1,6 @@
 package com.csiszer.my_shop.service.product;
 
-import com.csiszer.my_shop.exceptions.ProductNotFoundException;
+import com.csiszer.my_shop.exceptions.ResourceNotFoundException;
 import com.csiszer.my_shop.model.Category;
 import com.csiszer.my_shop.model.Product;
 import com.csiszer.my_shop.repository.CategoryRepository;
@@ -44,14 +44,14 @@ public class ProductService implements IProductService{
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id).
-                orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     @Override
     public void deleteProductById(Long id) {
         productRepository.findById(id).
                 ifPresentOrElse(productRepository::delete,
-                        () -> {throw new ProductNotFoundException("Product not found");});
+                        () -> {throw new ResourceNotFoundException("Product not found");});
     }
 
     @Override
@@ -59,7 +59,7 @@ public class ProductService implements IProductService{
         return productRepository.findById(productId).
                 map(existingProduct -> updateExistingProduct(existingProduct, request)).
                 map(productRepository :: save).
-                orElseThrow(() -> new ProductNotFoundException("Product not found"));
+                orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     private Product updateExistingProduct(Product existingProduct, ProductUpdateRequest request) {

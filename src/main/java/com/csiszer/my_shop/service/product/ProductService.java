@@ -22,7 +22,7 @@ public class ProductService implements IProductService{
     private final CategoryRepository categoryRepository;
     @Override
     public Product addProduct(AddProductRequest request) {
-        Category category = Optional.ofNullable(categoryRepository.finByName(request.getCategory().getName())).
+        Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName())).
                 orElseGet( () -> {
                     Category newCategory = new Category(request.getCategory().getName());
                     return categoryRepository.save(newCategory);
@@ -69,13 +69,13 @@ public class ProductService implements IProductService{
         existingProduct.setInventory(request.getInventory());
         existingProduct.setDescription(request.getDescription());
 
-        Category category = categoryRepository.finByName(request.getCategory().getName());
+        Category category = categoryRepository.findByName(request.getCategory().getName());
         existingProduct.setCategory(category);
         return existingProduct;
     }
 
     @Override
-    public List<Product> getAllPoducts() {
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 

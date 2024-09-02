@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.locks.AbstractOwnableSynchronizer;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,7 +23,7 @@ public class ProductController {
 
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllProducts() {
-        List<Product> products = productService.getAllPoducts();
+        List<Product> products = productService.getAllProducts();
         return ResponseEntity.ok(new ApiResponse("Success", products));
     }
 

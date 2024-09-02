@@ -34,7 +34,7 @@ public class CategoryController {
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addCategory(@RequestBody Category name) {
         try {
-            Category theCategory = categoryService.addCaegory(name);
+            Category theCategory = categoryService.addCategory(name);
             return ResponseEntity.ok(new ApiResponse("Success", theCategory));
         } catch (AlreadyExistsExcepptions e) {
             return ResponseEntity.status(HttpStatus.CONFLICT)

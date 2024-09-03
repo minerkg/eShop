@@ -1,4 +1,5 @@
 package com.csiszer.my_shop.service.product;
+import com.csiszer.my_shop.dto.ProductDto;
 import com.csiszer.my_shop.model.Product;
 import com.csiszer.my_shop.request.AddProductRequest;
 import com.csiszer.my_shop.request.ProductUpdateRequest;
@@ -20,4 +21,7 @@ public interface IProductService {
     Long countProductsByBrandAndName(String brand, String name);
 
 
+    List<ProductDto> getConvertedProducts(List<Product> products);
+
+    ProductDto convertToDto(Product product);
 }

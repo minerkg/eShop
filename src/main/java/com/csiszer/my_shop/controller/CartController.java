@@ -34,7 +34,8 @@ public class CartController {
             cartService.clearCart(cartId);
             return ResponseEntity.ok(new ApiResponse("Cart deleted", null));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Cart not found", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse("Cart not found", null));
         }
     }
 
@@ -44,7 +45,8 @@ public class CartController {
             BigDecimal totalPrice = cartService.getTotalPrice(cartId);
             return ResponseEntity.ok(new ApiResponse("Success", totalPrice));
         } catch (ResourceNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Not found", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse("Not found", null));
         }
     }
 

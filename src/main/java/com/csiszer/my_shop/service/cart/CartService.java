@@ -4,6 +4,7 @@ import com.csiszer.my_shop.exceptions.ResourceNotFoundException;
 import com.csiszer.my_shop.model.Cart;
 import com.csiszer.my_shop.repository.CartItemRepository;
 import com.csiszer.my_shop.repository.CartRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.csiszer.my_shop.model.CartItem;
@@ -29,6 +30,7 @@ public class CartService implements ICartService{
         return cartRepository.save(cart);
     }
 
+    @Transactional
     @Override
     public void clearCart(Long id) {
         Cart cart = getCart(id);

@@ -32,10 +32,12 @@ public class CartItemService implements ICartItemService{
         //if no , then initiate a new cart item entry
         Cart cart = cartService.getCart(cartId);
         Product product =productService.getProductById(productId);
-        CartItem cartItem = cart.getItems().stream()
+        CartItem cartItem = cart.getItems()
+                .stream()
                 .filter(cartIt -> cartIt.getProduct().getId().equals(productId))
                 .findFirst()
                 .orElse(new CartItem());
+
         if (cartItem.getId() == null) {
             cartItem.setCart(cart);
             cartItem.setQuantity(quantity);

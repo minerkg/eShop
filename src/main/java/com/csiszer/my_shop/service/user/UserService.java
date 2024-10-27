@@ -1,5 +1,6 @@
 package com.csiszer.my_shop.service.user;
 
+import com.csiszer.my_shop.dto.UserDto;
 import com.csiszer.my_shop.exceptions.AlreadyExistsExcepptions;
 import com.csiszer.my_shop.exceptions.ResourceNotFoundException;
 import com.csiszer.my_shop.model.User;
@@ -7,6 +8,7 @@ import com.csiszer.my_shop.repository.UserRepository;
 import com.csiszer.my_shop.request.CreateUserRequest;
 import com.csiszer.my_shop.request.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,6 +19,9 @@ import java.util.Optional;
 public class UserService implements IUserService{
 
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
+
+
     @Override
     public User getUserById(Long userId) {
         return userRepository.findById(userId)
@@ -54,4 +59,13 @@ public class UserService implements IUserService{
                 .ifPresentOrElse(userRepository::delete, () -> new ResourceNotFoundException("User not found"));
 
     }
+
+
+
+    @Override
+    public UserDto convertUserToDto(User user) {
+        return modelMapper.map(user, UserDto.class);
+    }
+
+
 }

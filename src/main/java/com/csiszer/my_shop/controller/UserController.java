@@ -5,7 +5,6 @@ import com.csiszer.my_shop.dto.UserDto;
 import com.csiszer.my_shop.exceptions.AlreadyExistsExcepptions;
 import com.csiszer.my_shop.exceptions.ResourceNotFoundException;
 import com.csiszer.my_shop.model.User;
-import com.csiszer.my_shop.repository.CartRepository;
 import com.csiszer.my_shop.request.CreateUserRequest;
 import com.csiszer.my_shop.request.UserUpdateRequest;
 import com.csiszer.my_shop.response.ApiResponse;
@@ -69,6 +68,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
     }
+
+    //6:55
 
 
 }

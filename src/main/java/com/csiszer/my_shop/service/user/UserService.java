@@ -34,7 +34,7 @@ public class UserService implements IUserService{
                 .filter(user -> !userRepository.existsByEmail(createuserRequest.getEmil()))
                 .map(request -> {
                     User user = new User();
-                    user.setEmil(request.getEmil());
+                    user.setEmail(request.getEmil());
                     user.setPassword(request.getPassword());
                     user.setFirstName(request.getFirstName());
                     user.setLastName(request.getLastName());

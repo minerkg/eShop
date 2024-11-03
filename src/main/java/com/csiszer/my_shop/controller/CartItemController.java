@@ -1,10 +1,12 @@
 package com.csiszer.my_shop.controller;
 
 import com.csiszer.my_shop.exceptions.ResourceNotFoundException;
-import com.csiszer.my_shop.model.CartItem;
+import com.csiszer.my_shop.model.Cart;
+import com.csiszer.my_shop.model.User;
 import com.csiszer.my_shop.response.ApiResponse;
 import com.csiszer.my_shop.service.cart.ICartItemService;
 import com.csiszer.my_shop.service.cart.ICartService;
+import com.csiszer.my_shop.service.user.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,16 +18,17 @@ import org.springframework.web.bind.annotation.*;
 public class CartItemController {
     private final ICartItemService cartItemService;
     private final ICartService cartService;
+    private final IUserService userService;
 
     @PostMapping("/item/add")
-    public ResponseEntity<ApiResponse> addItemToCart(@RequestParam(required = false) Long cartId,
+    public ResponseEntity<ApiResponse> addItemToCart(
                                                      @RequestParam Long productId,
                                                      @RequestParam Integer quantity) {
         try {
-            if (cartId == null) {
-                cartId = cartService.initializeNewCart();
-            }
-            cartItemService.addItemToCart(cartId, productId, quantity);
+            User user = userService.getUserById(1L);
+            Cart cart = cartService.initializeNewCart(user);
+
+            cartItemService.addItemToCart(cart.getId(), productId, quantity);
             return ResponseEntity.ok(new ApiResponse("Item added successfully", null));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
